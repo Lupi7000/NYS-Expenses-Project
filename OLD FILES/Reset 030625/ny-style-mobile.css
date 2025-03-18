@@ -1,0 +1,264 @@
+/* MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE */
+
+@media (max-width: 600px) {
+
+body {
+background-size: 5px 5px;
+background-image: repeating-linear-gradient(45deg, #d0d6ee 0, #d0d6ee 1px, #ffffff 0, #ffffff 50%);
+
+}
+
+.nys-wrapper-on {
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "nysmap"
+    "budget"
+    "officials";
+}
+
+.grid-county-mode {
+   grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "line"
+    "county"
+    "cite" 
+    "footer" 
+    "map";
+}
+
+
+.state-name {
+  font-size: 8vw;
+}
+
+.counties {
+  stroke-width: .25vw;
+}
+
+.officials-header {
+  font-size: 7vw;
+}
+
+.vote-button {
+  font-size: 3.5vw;
+  margin-top:20px;
+  margin-left:20px;
+  margin-bottom: 10px;
+}
+
+.run-for-office-button {
+  font-size: 3.5vw;
+  margin-top:20px;
+  margin-right:20px;
+  margin-bottom: 10px;
+}
+
+.tooltip {
+  font-size: 6.45vw;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.hiddenTooltip {
+  font-size: 6.45vw;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.return {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+/* MOBILE OFFICIALS*/
+
+
+.official-image {
+  padding-top: 2px;
+  padding-left:2px;
+  padding-bottom: 5px;
+}
+
+.official-name {
+  font-size: 4.5vw;
+  padding-left: 15px;
+}
+
+.official-title {
+  font-size: 4vw;
+}
+
+.official-party {
+  font-size: 3vw;
+  margin-bottom: 2px;
+}
+
+.official-term {
+  font-size: 3vw;
+  margin-bottom: 2px;
+}
+
+.official-salary {
+  font-size: 3vw;
+  margin-bottom: 2px;
+}
+
+
+/* MOBILE COUNTY STYLING */
+
+
+.county-clicked-mode-on {
+	grid-area: county;
+	grid-template-columns: 100%;
+	grid-template-areas: 
+	"countybudget" 
+	"congressreps" 
+	"statesenate"
+	"assemblyreps";
+	margin-top: 12vw;
+
+}
+
+.county-rep-title {
+  grid-column: 1 / span 1;
+  font-size: 3.4vw;
+}
+
+.congress-abstract {
+    grid-column: 1 / span 1;
+    padding: 7px 20px 7px 20px;
+    font-size: .65em;
+}
+
+.congressreps {
+    margin-left: 10px;
+    margin-top: 10px;
+    grid-template-columns: 100%;
+    }
+
+.statesenatereps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.assemblyreps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+
+.rep-info, .county-salary, .staff-average-expenses, .staff-salaries, .operations-expenses, .travel-expenses, .total-expenses {
+  display: none;
+}
+
+.blank {
+  display: none;
+  z-index: 5;
+}
+
+.representative-container {
+  display: grid;
+  grid-template-areas:
+  "repname repname repname"
+  "repparty repparty ."
+  "repdistrict repdistrict ."
+  "repstart repemail repphone"
+
+}
+
+.rep-info-mobile, .county-salary-mobile, .staff-salaries-mobile, .staff-average-expenses-mobile, .operations-expenses-mobile, .travel-expenses-mobile, .total-expenses-mobile {
+   grid-column:1;
+   display:flex;
+   align-self: center;
+   justify-content: center;
+   background-color: #5783ad;
+   color: white;
+   text-transform: uppercase; 
+   padding: 10px 5px;
+   font-size: 0.9em;
+   width: 100%;
+   box-sizing: border-box;
+   margin-bottom: -5px;
+}
+
+.staff-salaries-mobile, .staff-average-expenses-mobile, .operations-expenses-mobile, .travel-expenses-mobile, .total-expenses-mobile {
+   grid-column: span 2;
+   grid-area: category;
+}
+
+.representative-name { font-size: 1.2em; grid-area:repname; }
+.representative-party { font-size: .9em; grid-area:repparty; align-self: end; justify-self: start; }
+.representative-district { font-size: .8em; grid-area:repdistrict; align-self: end; justify-self: start;}
+.representative-start { font-size: .9em; grid-area:repstart; }
+.representative-phone { font-size: .9em; grid-area:repphone; align-self: end; justify-self: end;}
+.representative-next-vote { font-size: .9vw;  }
+.representative-email a {font-size: .9em; grid-area:repemail; }
+
+
+.expensediv-staff, .expensediv-staff-average, .expensediv-operations, .expensediv-travel, .expensediv-total {
+  display: grid;
+  grid-template-areas: 
+  "category category"
+  "expense benchmark";
+  grid-template-columns: 50% 50%;
+  background-color: white;
+}
+
+.salary {
+  background-color: white;
+  flex: 1;
+  align-self: end;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  align-self: stretch;
+  margin-bottom: -24px;
+}
+
+.staff, .staff-average, .operations, .travel, .total {
+  flex: 1;
+  align-self: center;
+  justify-self: end;
+  font-size: 1.2em;
+  grid-area: expense;
+  padding-top: 10px;
+
+}
+
+
+.benchmarks-staff, .benchmarks-staff-average, .benchmarks-ops, .benchmarks-travel, .benchmarks-total {
+  grid-area: benchmark;
+  justify-self: start;
+  font-size: .9em;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.expensediv-total {
+   margin-bottom: 30px;
+}
+
+/* BOTTOM OF THE PAGE */
+
+.cite {
+	font-size: 4vw;
+	padding-right: 30px;
+  	border-top: dashed #104E8B 1px;
+}
+
+.nys-cite a {
+	font-size: 0.875rem;
+}
+
+.footer {
+	font-size: 0.875rem;
+ 	border-top: dashed #104E8B 1px;
+}
+
+
+
+/* \/ DONT DELETE THIS LITTLE BRACKET!!!! \/ */
+}
+/* ^ DONT DELETE THIS LITTLE BRACKET!!!! ^ */

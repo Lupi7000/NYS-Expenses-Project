@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>NYS V2</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson@3"></script>
+  <link rel="stylesheet" href="ny-style.css">
+  <link rel="stylesheet" href="ny-style-mobile.css">
+  <link rel="stylesheet" href="ny-style-tablet.css">
+  <link rel="stylesheet" href="ny-style-desktop.css">
+  <link rel="stylesheet" href="ny-style-large-screens.css">
+  <link rel="stylesheet" href="ny-style-super-huge-screens.css">
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+<!-- GRID LAYOUT -->
+
+<div class="grid">
+
+<!-- TOP AREA OF THE PAGE (Contains buttons to Vote and Run for Office) -->
+
+<div class="top"> 
+  <div>
+      <a href="https://elections.ny.gov/voter-registration-process#register-online"><button class="vote-button">VOTE!</button></a>
+  </div>
+  <div>
+      <a href="https://elections.ny.gov/running-office"><button class="run-for-office-button">RUN FOR OFFICE</button></a>
+  </div>
+</div>
+<!-- DIVIDING LINE WITH STATE NAME -->
+<h1 class="state-name">NEW YORK STATE</h1>
+<!-- WRAPS THE MAP AND STATE LEVEL INFO -->
+
+<div class="nys-wrapper-on"> 
+
+<!-- MAP MAP MAP MAP MAP MAP THIS IS THE MAP MAP MAP MAP -->
+
+  <div id="map"> </div>
+
+<!-- NYS BUDGET INFO -->
+
+  <div class="nys-budget-tree"> SPACE RESERVED FOR NYS BUDGET ALLOCATIONS</div>
+
+<!-- NYS OFFICIALS NYS OFFICIALS -->
+
+  <div class="officials-container">
+    <div class="officials-header"> ELECTED OFFICIALS </div>
+
+      <div class="officials">
+        <div class="official-title">GOVERNOR</div>
+        <div class="official-image"> <img class="official-image-circle" src="https://i.imgur.com/zbBOWVA.jpeg"/></div>
+        <div class="official-name">KATHY HOCHUL</div>
+        <div class="official-party">DEMOCRAT</div>
+        <div class="official-term">ELECTED 2021</div>
+        <div class="official-salary">SALARY: $225,000</div>
+      </div>
+
+      <div class="officials">
+        <div class="official-title">COMPTROLLER</div>
+        <div class="official-image"> <img class="official-image-circle" src="https://i.imgur.com/7nd3m3O.jpeg"/></div>
+        <div class="official-name">THOMAS DiNAPOLI</div>
+        <div class="official-party">DEMOCRAT</div>
+        <div class="official-term">ELECTED 2007</div>
+        <div class="official-salary">SALARY: $210,000</div>
+      </div>
+
+      <div class="officials">
+        <div class="official-title">ATTORNEY GENERAL</div>
+        <div class="official-image"> <img class="official-image-circle" src="https://i.imgur.com/51ESGbA.jpeg"/></div>
+        <div class="official-name">LETITIA JAMES</div>
+        <div class="official-party">DEMOCRAT</div>
+        <div class="official-term">ELECTED 2019</div>
+        <div class="official-salary">SALARY: $210,000</div>
+      </div>
+
+      <div class="officials">
+        <div class="official-title">SENATOR</div>
+        <div class="official-image"> <img class="official-image-circle" src="https://i.imgur.com/cybt4iY.jpeg"/></div>
+        <div class="official-name">CHUCK SCHUMER</div>
+        <div class="official-party">DEMOCRAT</div>
+        <div class="official-term">ELECTED 1999</div>
+        <div class="official-salary">SALARY: $174,000</div>
+      </div>
+
+      <div class="officials">
+        <div class="official-title">SENATOR</div>
+        <div class="official-image"> <img class="official-image-circle" src="https://i.imgur.com/abBdDOx.jpeg"/></div>
+        <div class="official-name">KRISTEN GILLIBRAND</div>
+        <div class="official-party">DEMOCRAT</div>
+        <div class="official-term">ELECTED 2009</div>
+        <div class="official-salary">SALARY: $174,000</div>
+      </div>
+
+    </div>
+</div>
+
+<!-- CITE DATA SOURCES -->
+
+<div class="cite"> 
+
+<h2 class="data-sources">DATA SOURCES</h2>
+  <div class="nys-cite"> 
+    <ul> 
+     <a href="https://elections.ny.gov/new-york-state-elected-officials"><li>https://elections.ny.gov/new-york-state-elected-officials</li></a>
+      <a href="https://data.ny.gov/Transparency/Salary-Information-for-State-Authorities/unag-2p27/about_data"><li>https://data.ny.gov/Transparency/Salary-Information-for-State-Authorities/unag-2p27/about_data</li></a>
+      <a href="https://www.senate.gov/senators/SenateSalariesSince1789.htm"><li>https://www.senate.gov/senators/SenateSalariesSince1789.htm</li></a>
+    </ul>
+  </div>
+  <div class="county-cite"> </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer"> 
+  <div class="footer-text">
+Please reach out with any questions, commments or concerns <br/>
+accountability@wearethedollarsandcents.com
+<br/><br/>
+We Are The Dollars and Cents is a not for profit, independent website designed to give you the tools to navigate where your tax dollars are going and what they're being spent on. Our aim is to give voters the information they need at the ballot box to make informed decisions. 
+<br /> <br />
+We Are the Dollars and Cents does not accept funds or donations from any corporate interests and never will.
+  </div>
+</div>
+
+
+<!-- COUNTY MODE (Once you click on a county, this stuff comes up) -->
+
+<div class="county-clicked-mode-off">
+
+<div class="county-budget"> 
+County Budget
+
+</div>
+
+<div class="congressreps"> 
+    <div class="county-rep-title">FEDERAL CONGRESSIONAL REPRESENTATIVES</div>
+    <div class="congress-abstract">Congressional expense data is collected twice a year, once in April and once in October. The expenses below represent 12 months of data collected from October 1, 2022 to September 31, 2023</div>
+    <div class="rep-info">Info</div>
+  <div class="county-salary">Salary</div>
+      <div class="staff-salaries">Staff</div>
+      <div class="staff-average-expenses">Staff Avg</div>
+      <div class="operations-expenses">Operations</div>
+      <div class="travel-expenses">Travel</div>
+      <div class="total-expenses">Total</div> 
+
+</div>
+
+<div class="statesenatereps"> 
+
+    <div class="county-senate-title">STATE SENATORS</div>
+    <div class="senate-info">Info</div>
+    <div class="county-salary">Salary</div>
+    <div class="staff-salaries">Staff</div>
+    <div class="staff-average-expenses">Staff Avg</div>
+    <div class="operations-expenses">Operations</div>
+    <div class="travel-expenses">Travel</div>
+    <div class="total-expenses">Total</div>
+</div>
+
+<div class="assemblyreps"> 
+
+    <div class="county-assembly-title">STATE ASSEMBLY REPRESENTATIVES</div>
+    <div class="assembly-info">Info</div>
+    <div class="county-salary">Salary</div>
+    <div class="staff-salaries">Staff</div>
+    <div class="staff-average-expenses">Staff Avg</div>
+    <div class="operations-expenses">Operations</div>
+    <div class="travel-expenses">Travel</div>
+    <div class="total-expenses">Total</div>
+</div>
+
+</div>
+
+<!-- GRID LAYOUT END -->
+</div>
+
+
+
+
+
+</body>
+</html>
+  <script src="NY.js"></script>

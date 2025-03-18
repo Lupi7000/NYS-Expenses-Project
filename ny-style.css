@@ -1,0 +1,677 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  margin: 0px 0px 50px 0px;
+  }
+
+
+/* PAGE LAYOUT PAGE LAYOUT PAGE LAYOUT PAGE LAYOUT PAGE LAYOUT */
+
+.grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "line"
+    "map"
+    "cite" 
+    "footer";
+}
+
+.grid-county-mode {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "line"
+    "county"
+    "cite" 
+    "footer";
+}
+
+.top {
+  grid-area: top;
+}
+
+.state-name {
+  padding-left: 20px;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  background-color: #104E8B;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+  grid-area: line;
+}
+
+.nys-wrapper-on {
+  grid-area: map;
+  display: grid;
+}
+
+.nys-wrapper-off {
+  display:none;
+}
+
+.cite {
+
+  border-top: dashed #104E8B;
+  text-align: left;
+  font-family: 'Raleway', sans-serif;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #5783ad;
+  grid-area: cite;
+}
+
+/* DATA SOURCES */
+.nys-cite {
+    width: 100%;
+}
+
+.nys-cite ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nys-cite li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 1.5em;
+    position: relative;
+  }
+
+.nys-cite li::before {
+  content: "\2022"; /* Unicode for bullet character */
+  position: absolute; /* Position the bullet absolutely */
+  left: 0; /* Position the bullet to the left of the list item */
+  top: 0.3em; /* Adjust vertical alignment */
+}
+
+.nys-cite a {
+  color: #5783ad;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+.footer {
+  border-top: dashed #104E8B;
+  text-align: center;
+  font-family: sans-serif;
+  padding: 50px 20px 50px 20px;
+  grid-area: footer;
+}
+
+/* MAP AND MAP CONTAINER (contained in nys-wrapper) */
+
+
+#map {
+  padding-top: 10px;
+  resize: both;
+  overflow: auto;
+  grid-area: nysmap;
+}
+
+#hiddenmap {
+  display: none;
+}
+
+.nys-budget-tree {
+  grid-area: budget;
+
+  background-color: yellowgreen;
+}
+
+.officials-container {
+  grid-area: officials;
+}
+
+/* COUNTY SVG MAP STYLING */
+
+
+.counties {
+  fill: #B7C9DC;
+  stroke: white;
+}
+
+.counties:hover {
+  fill: #104E8B;
+}
+
+/* TOP BUTTONS */
+
+.vote-button {
+  float: left;
+  background: #e84a5f;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  
+}
+
+.run-for-office-button {
+  float: right;
+  background: #e84a5f;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  
+}
+
+/* HOVER COUNTY SELECTOR */
+
+.tooltip {
+  position: absolute;
+  top:0px;
+  pointer-events: none;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  background: none;
+  color: #104E8B;
+  
+}
+
+.hiddenTooltip {
+  position: absolute;
+  top:0px;
+  pointer-events: none;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 8vw;
+  background: none;
+  color: #104E8B;
+}
+
+/* RETURN BUTTON */
+
+.return {
+  z-index: 1;
+  background-color: #104E8B;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  font-style: italic;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.hiddenButton {
+  visibility: hidden;
+}
+
+
+/* ELECTED OFFICIALS ELECTED OFFICIALS ELECTED OFFICIALS ELECTED OFFICIALS */
+
+
+.officials {
+  background: whitesmoke ;
+  display: grid; 
+  grid-template-columns: auto 1fr 1fr;
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "title title ."
+    "image name name "
+    "party term salary";
+  font-family: Raleway, sans-serif;
+  padding-bottom: 10px;
+}
+
+.hidden-officials {
+  display: none;
+}
+
+.officials-header {
+  font-family: Raleway, sans-serif;
+  background: #104E8B;
+  color: white;
+  font-weight: 700;
+  font-style: oblique;
+  margin-bottom: 10px;
+  padding: 2px 0px 2px 10px;
+}
+
+.official-image {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  grid-area: image;
+  justify-self: center;
+}
+
+.official-image-circle {
+  display:block;
+  width: 13vw; 
+  height: auto;
+  border-radius: 50% ;
+  border: solid 0.7vw #104E8B;
+}
+
+.official-name {
+  align-self: center;
+  grid-area: name;
+  font-size: 3.7vw;
+  font-weight: 500;
+}
+
+.official-title {
+  font-size: 3vw;
+  margin-bottom: 5px;
+  padding: 3px 5px 3px 10px;
+  align-self: center;
+  grid-area: title;
+  font-weight: 600;
+  background-color: #5783ad;
+  color: white;
+  overflow: hidden;
+}
+
+.official-party {
+  align-self: center;
+  justify-self: center;
+  grid-area: party;
+  font-size: 3vw;
+  font-weight: 500;
+  padding-left: 10px;
+  color: #104E8B;
+}
+.official-term {
+  align-self: center;
+  place-self: center;
+  grid-area: term;
+  font-size: 3vw;
+  font-weight: 300;
+
+}
+.official-salary {
+  align-self: center;
+  justify-self: start;
+  grid-area: salary;
+  font-size: 3.5vw;
+  font-weight: 300;
+  padding-right: 10px;
+}
+
+
+/* COUNTY INFORMATION ONCE CLICKED*/
+
+.county-clicked-mode-off { display: none; }
+.county-clicked-mode-on { display: grid;}
+
+.county-budget { 
+  background-color: red; 
+  margin-left: 10px;
+  margin-right: 10px;
+  grid-area: countybudget;
+   } 
+
+.congressreps {
+    font-family: 'Raleway', sans-serif;
+    display: grid;
+    grid-area: congressreps;
+    grid-template-columns: 100%;
+    grid-auto-rows: min-content;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: yellowgreen;
+    }
+
+.statesenatereps { 
+    font-family: 'Raleway', sans-serif;
+    display: grid;
+    grid-area: statesenate;
+    grid-template-columns: 25% 1fr 1fr 1fr 1fr 15%;
+    grid-auto-rows: min-content;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: orange;
+   }
+
+.assemblyreps {
+    font-family: 'Raleway', sans-serif;
+    display: grid;
+    grid-area: assemblyreps;
+    grid-template-columns: 25% 1fr 1fr 1fr 1fr 15%;
+    grid-auto-rows: min-content;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: yellow;
+    }
+
+      /* header categories */
+      .rep-info {
+         grid-column-start: 1;
+         width:100%;
+         align-self: center;
+         justify-self: start;
+         padding-left: 10px;
+         background-color: #5783ad;
+         color: white;
+         text-transform: uppercase; 
+         padding-top: 5px; 
+         padding-bottom: 5px;
+     }
+      .county-salary {
+        grid-column-start: 2; 
+        width:100%; 
+        align-self: center; 
+        text-align: center; 
+        background-color: #5783ad; 
+        color: white; 
+        text-transform: uppercase; 
+        padding-top: 5px; 
+        padding-bottom: 5px;
+      }
+      .staff-salaries {
+        grid-column-start: 3; 
+        width:100%; 
+        align-self: center; 
+        text-align: center; 
+        background-color: #5783ad; 
+        color: white; 
+        text-transform: uppercase; 
+        padding-top: 5px; 
+        padding-bottom: 5px;
+      }
+      .operations-expenses {
+        grid-column-start: 4; 
+        width:100%; 
+        align-self: center; 
+        text-align: center; 
+        background-color: #5783ad; 
+        color: white; 
+        text-transform: uppercase; 
+        padding-top: 5px; 
+        padding-bottom: 5px;
+      }
+      .travel-expenses {
+        grid-column-start: 5; 
+        width:100%; 
+        align-self: center; 
+        text-align: center; 
+        background-color: #5783ad; 
+        color: white; 
+        text-transform: uppercase; 
+        padding-top: 5px; 
+        padding-bottom: 5px;
+      }
+      .total-expenses {
+        grid-column-start: 6; 
+        width:100%; 
+        align-self: center; 
+        text-align: center; 
+        background-color: #5783ad; 
+        color: white; 
+        text-transform: uppercase; 
+        padding-top: 5px; 
+        padding-bottom: 5px;
+      }
+
+      /* Representative Spending */
+      .salary {
+        align-self: center;
+        text-align: center;
+      }
+      .staff {
+        align-self: center;
+        text-align: center;
+      }
+      .operations {
+        align-self: center;
+        text-align: center;
+      }
+      .travel {
+        align-self: center;
+        text-align: center;
+      }
+      .total {
+        align-self: center;
+        text-align: center;
+      } 
+
+.county-rep-title {
+  grid-column: 1 / span all;
+  background-color: #104E8B;
+  color: white;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.representative-container {
+  grid-column: 1 / span 1;
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+
+
+}
+
+.representative-name { font-weight: 700;}
+
+.representative-start { padding-top: 10px;}
+
+.representative-next-vote { margin-top: 10px; background-color: #C04000; color: white; padding: 5px;}
+
+.representative-email a { text-decoration: none; color: #6badc4; grid-auto-columns: min-content; }
+
+/*
+.hiddenCounty {
+  visibility: hidden;
+}
+
+.clickedCounty {
+  fill: #104E8B;
+  stroke: white; 
+  stroke-width: 2;
+  visibility: hidden;
+}
+
+
+*/
+
+/* PROFILE CARDS */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .profile-wrapper {
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+            max-width: 700px;
+            width: 100%;
+        }
+        .card {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .info { flex-grow: 1; }
+        .name {
+            font-size: 38px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .details {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 18px;
+        }
+        .party { color: #b20f3b; font-weight: 500; margin-right: 15px; }
+        .phone { margin-left: 15px; }
+        .additional-info {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .expansion-content {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+    padding: 15px;
+    font-size: 16px;
+    flex-grow: 1; /* Make sure it expands */
+}
+        .grey-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: calc(100% - 40px);
+            height: 50px;
+            border: solid #ddd;
+            border-width: 0 2px 2px 0;
+            border-radius: 0 0 15px 0;
+        }
+        .btn-container {
+            position: absolute;
+            bottom: 35px;
+            right: 20px;
+            z-index: 10;
+        }
+        .btn-expenses {
+            background-color: #173e72;
+            color: white;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            width: 200px;
+            margin-right: 50px;
+            margin-bottom: -70px;
+            box-sizing: border-box;
+        }
+        .btn-expenses::after {
+            content: '▾';
+            font-size: 12px;
+            margin-left: auto;
+            transition: transform 1s ease;
+        }
+        .btn-text { flex: 1; text-align: left; letter-spacing: 1.5px; }
+        .expanded {
+            height: 280px !important;
+        }
+        .expanded .btn-expenses::after { transform: rotate(180deg); }
+        .expansion-content {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.expanded .expansion-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+        .chart-container {
+    max-width: 600px;
+    height: 180px; /* Ensure height is set */
+    margin: auto;
+    position: relative;
+    display: block; /* Prevent collapsing */
+}
+    .averages-container {
+      padding-left: 100px;
+    }
+    .table-title {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 12px;
+            font-weight: 100;
+            margin-bottom: 4px;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            
+        }
+
+       table {
+           
+            border-collapse: collapse;
+             border: 1px solid black;
+            width: 290px;
+        }
+        th, td {
+            font-family: 'Helvetica', sans-serif;
+            font-weight: 100;
+            font-size: 12px;
+            padding: 3px 6px;
+            text-align: center;
+        }
+      
+    .graph-key {
+      position: absolute;
+      top: 0px;
+      right:118px;
+      margin-bottom: 100px;
+  z-index: 20;
+    }
+    .key-box {
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      width: 100px;
+      border: 1px solid black;
+    }
+    
+    .dashed-line {
+  width: 30%; 
+  border-top: 2px dashed orange;
+  margin-right: 8px;          /* Adjust vertical margin as needed; auto horizontally centers it */
+}
+    .key-text {
+      font-family: 'Helvetica', sans-serif;
+      font-weight: 100;
+      font-size: 11px;
+      white-space: nowrap;
+      text-align: right;
+      flex-grow:1;
+    }
+
+.expansion-container {
+    position: relative; /* Change from absolute */
+    width: 100%;
+    max-height: 60px; /* Set to initial collapsed height */
+    overflow: hidden;
+    transition: max-height 0.6s ease-out, opacity 0.3s ease-in;
+    display: flex; /* Make sure content stacks properly */
+    flex-direction: column; /* Stack content vertically */
+}

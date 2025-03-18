@@ -1,0 +1,191 @@
+/* SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS */
+
+@media (min-width: 1401px) and (max-width: 1800px) {
+
+body {
+background-size: 10px 10px;
+background-image: repeating-linear-gradient(45deg, #d0d6ee 0, #d0d6ee 1px, #ffffff 0, #ffffff 50%);
+
+}
+
+.nys-wrapper-on {
+  grid-template-columns: 60% 40%;
+  grid-template-areas:
+    "nysmap officials"
+    "budget officials"
+}
+
+.grid-county-mode {
+   grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "line"
+    "county"
+    "cite" 
+    "footer";
+}
+
+
+.state-name {
+  font-size: 4vw;
+}
+
+.counties {
+  stroke-width: .15vw;
+}
+
+.officials {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.officials-container {
+  grid-area: officials;
+  border-left: dashed 2px #104E8B;
+}
+
+.officials-header {
+  font-size: 1.5vw;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.vote-button {
+  font-size: 2vw;
+  margin-top:20px;
+  margin-left:20px;
+  margin-bottom: 20px;
+}
+
+.run-for-office-button {
+  font-size: 2vw;
+  margin-top:20px;
+  margin-right:20px;
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  font-size: 4.75vw;
+  margin-top: 12vw;
+  margin-left: 20px;
+}
+
+.hiddenTooltip {
+  font-size: 4.75vw;
+  margin-top: 12vw;
+  margin-left: 20px;
+}
+
+.return {
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-bottom: 40px;
+}
+
+/* SUPER HUGE SCREEN OFFICIALS*/
+
+.official-image {
+  padding-top: 5px;
+  padding-left:15px;
+  padding-bottom: 10px;
+}
+
+.official-image-circle {
+  width: 4vw; 
+  border: solid 0.175vw #104E8B;
+}
+
+.official-name {
+  font-size: 1.5vw;
+  padding-left: 15px;
+}
+
+.official-title {
+  font-size: 1.25vw;
+}
+
+.official-party {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+.official-term {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+.official-salary {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+/* LARGE SCREEN COUNTY STYLING */
+
+.county-clicked-mode-on {
+	grid-area: county;
+	grid-template-columns: 50% 50%;
+	grid-template-areas: 
+	"countybudget countybudget" 
+	"congressreps statesenate"
+	"assemblyreps .";
+	margin-top: 9vw;
+}
+
+.congressreps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.statesenatereps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.assemblyreps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.county-rep-title {
+  font-size: 2vw;
+}
+
+.rep-info {font-size: 1.5vw;}
+.county-salary {font-size: 1.5vw;}
+.staff-salaries {font-size: 1.5vw;}
+.operations-expenses {font-size: 1.5vw;}
+.travel-expenses {font-size: 1.5vw;}
+.total-expenses {font-size: 1.5vw;}
+
+
+.representative-name { font-size: 1.5vw; }
+.representative-party { font-size: 1.25vw;}
+.representative-district { font-size: 1vw;}
+.representative-start { font-size: 1vw;}
+.representative-phone { font-size: 1vw; }
+.representative-next-vote { font-size: .9vw;}
+.representative-email a {font-size: .9}
+
+
+
+/* BOTTOM OF THE PAGE */
+
+
+.cite {
+	font-size: 2vw;
+}
+
+.nys-cite a {
+	font-size: 1vw;
+}
+
+.footer {
+	font-size: .8vw;
+}
+
+
+/* \/ DONT DELETE THIS LITTLE BRACKET!!!! \/ */
+}
+/* ^ DONT DELETE THIS LITTLE BRACKET!!!! ^ */

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">
+  <html xmlns="http://www.w3.org/TR/xhtml1/strict" >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>NYS V2</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson@3"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+  <link rel="stylesheet" href="ny-style.css">
+</head>
+<body>
+
+<div id="map">
+
+
+</div>
+  
+</body>
+</html>
+
+<script>
+
+const width = 900;
+const height = 600;
+
+console.log(height)
+
+var svg = d3.select("#map").append("svg").attr("height", height).attr("width", width)
+var scaleCenter = calculateScaleCenter(counties);
+var projection = d3.geoMercator().scale(scaleCenter.scale).center(scaleCenter.center).translate([width / 2, height / 2])
+var path = d3.geoPath().projection(projection)
+
+
+Promise.all([
+
+  d3.json("https://gist.githubusercontent.com/Lupi7000/d770ce6f2985c3a7bac1099688e4f772/raw/d327f59834fb0f9f2201ad71c3f1711ecb5bf6de/NYTest.json"),d3.csv("https://gist.githubusercontent.com/Lupi7000/7e8cf50a2fbc046df1e47ab33225bdba/raw/cd230a7ef78064f02038fa45003992cb976469bc/NY-State-Assembly.csv"),
+  d3.csv("https://gist.githubusercontent.com/Lupi7000/6fc23a42e814e31ca124996fbaaefcc4/raw/a5218a7718227e2bb372e8c3a215d37b62537d5b/NY-State-Senate.csv"),
+  d3.csv("https://gist.githubusercontent.com/Lupi7000/3073906da834f4b22f81583ef9fd0135/raw/1ebdefe1ad2a403b198a5667688d3a13eeea4802/NY-State-Congress2.csv")
+  ]).then( ([mapData, stateAssembly, stateSenate, fedCongress]) => {
+
+
+var counties = topojson.feature(mapData, mapData.objects.cb_2015_new_york_county_20m).features;
+
+console.log(counties)
+
+
+  svg.append('g')
+    .selectAll('path')
+    .data(counties)
+    .enter()
+    .append('path')
+    .attr('d', path)
+    .attr('class', 'counties')
+
+
+//ready(null, mapData);
+
+});
+
+/* function ready(error, mapData){
+
+var counties = topojson.feature(mapData, mapData.objects.cb_2015_new_york_county_20m).features;
+
+console.log(counties)
+
+
+svg.selectAll('.counties')
+      .data(counties)
+      .enter().append('path')
+      .attr("class", "counties")
+  
+} */
+
+
+function calculateScaleCenter(counties) {
+var bbox_path = path.bounds(counties),
+scale = 0.95 / Math.max(
+(bbox_path[1][0] - bbox_path[0][0]) / width, (bbox_path[1][1] - bbox_path[0][1]) / height);
+var bbox_feature = d3.geoBounds(counties),
+center = [
+(bbox_feature[1][0] + bbox_feature[0][0]) / 2, (bbox_feature[1][1] + bbox_feature[0][1]) / 2
+];
+return {
+'scale': scale,
+'center': center
+};
+}
+
+
+ </script> 

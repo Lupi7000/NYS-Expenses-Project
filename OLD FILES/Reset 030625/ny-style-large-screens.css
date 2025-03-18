@@ -1,0 +1,220 @@
+/* SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS SUPER HUGE SCREENS */
+
+@media (min-width: 1401px) and (max-width: 1800px) {
+
+body {
+background-size: 7px 7px;
+background-image: repeating-linear-gradient(45deg, #d0d6ee 0, #d0d6ee 1px, #ffffff 0, #ffffff 50%);
+
+}
+
+.nys-wrapper-on {
+  grid-template-columns: 60% 40%;
+  grid-template-areas:
+    "nysmap officials"
+    "budget officials"
+}
+
+.grid-county-mode {
+   grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "line"
+    "county"
+    "cite" 
+    "footer";
+}
+
+
+.state-name {
+  font-size: 4vw;
+}
+
+.counties {
+  stroke-width: .15vw;
+}
+
+.officials {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.officials-container {
+  grid-area: officials;
+  border-left: dashed 2px #104E8B;
+}
+
+.officials-header {
+  font-size: 1.5vw;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.vote-button {
+  font-size: 2vw;
+  margin-top:20px;
+  margin-left:20px;
+  margin-bottom: 20px;
+}
+
+.run-for-office-button {
+  font-size: 2vw;
+  margin-top:20px;
+  margin-right:20px;
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  font-size: 4.75vw;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.hiddenTooltip {
+  font-size: 4.75vw;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.return {
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-bottom: 40px;
+}
+
+/* LARGE SCREEN OFFICIALS*/
+
+.official-image {
+  padding-top: 5px;
+  padding-left:15px;
+  padding-bottom: 10px;
+}
+
+.official-image-circle {
+  width: 4vw; 
+  border: solid 0.175vw #104E8B;
+}
+
+.official-name {
+  font-size: 1.5vw;
+  padding-left: 15px;
+}
+
+.official-title {
+  font-size: 1.25vw;
+}
+
+.official-party {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+.official-term {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+.official-salary {
+  font-size: 1vw;
+  margin-bottom:10px;
+}
+
+/* LARGE SCREEN COUNTY STYLING */
+
+.rep-info-mobile, .staff-salaries-mobile, .staff-average-expenses-mobile, .operations-expenses-mobile, .travel-expenses-mobile, .total-expenses-mobile {
+ display: none;
+}
+
+.county-clicked-mode-on {
+	grid-area: county;
+	grid-template-columns: 50% 50%;
+	grid-template-areas: 
+	"countybudget countybudget" 
+	"congressreps statesenate"
+	"assemblyreps .";
+	margin-top: 9vw;
+}
+
+.congressreps {
+    margin-left: 10px;
+    margin-top: 10px;
+
+    }
+
+.statesenatereps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.assemblyreps {
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+.congress-abstract {
+  grid-column: 1 / span 7; 
+  font-size: .82em;
+  padding: 12px 40px 12px 40px;
+}
+
+.county-rep-title {
+  font-size: 2vw;
+}
+
+.representative-container {
+  grid-column: 1;
+  grid-row: span 2;
+}
+
+.rep-info {font-size: .82em; padding-left: 10px}
+.county-salary {font-size: .82em;}
+.staff-salaries {font-size: .82em;}
+.staff-average-expenses {font-size: .82em;}
+.operations-expenses {font-size: .82em;}
+.travel-expenses {font-size: .82em;}
+.total-expenses {font-size: .82em;}
+
+
+.representative-name { font-size: 1.1em; }
+.representative-party { font-size: 1em;}
+.representative-district { font-size: .8em;}
+.representative-start { font-size: .8em;}
+.representative-phone { font-size: .8em; }
+.representative-next-vote { font-size: .8em;}
+.representative-email a {font-size: .8em}
+
+.expensediv-salary { background-color: #eff2f5; }
+.expensediv-staff { background-color: white ; }
+.expensediv-staff-average { background-color: #eff2f5; }
+.expensediv-operations { background-color: white; }
+.expensediv-travel { background-color: #eff2f5; }
+.expensediv-total { background-color:#d0d8e2; }
+
+.benchmarks-staff { font-size: .8em; padding-top: 7px;}
+.benchmarks-staff-average { font-size: .8em; padding-top: 7px;}
+.benchmarks-ops { font-size: .8em; padding-top: 7px;}
+.benchmarks-travel { font-size: .8em; padding-top: 7px;}
+.benchmarks-total { font-size: .8em; padding-top: 7px;}
+
+/* BOTTOM OF THE PAGE */
+
+
+.cite h2 {
+	font-size: 2em;
+  font-weight: 400;
+}
+
+.nys-cite {
+	font-size: .9em;
+}
+
+.footer {
+	font-size: .8em;
+}
+
+
+/* \/ DONT DELETE THIS LITTLE BRACKET!!!! \/ */
+}
+/* ^ DONT DELETE THIS LITTLE BRACKET!!!! ^ */

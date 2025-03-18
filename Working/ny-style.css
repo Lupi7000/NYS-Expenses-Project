@@ -1,0 +1,17 @@
+body {
+  margin: 5px;
+  background-size: 10px 10px;
+background-image: repeating-linear-gradient(45deg, #d0d6ee 0, #d0d6ee 1px, #ffffff 0, #ffffff 50%);
+}
+
+
+svg {
+stroke: #000;
+stroke-width: 1px;
+
+}
+
+.map path {
+  fill: #87B687;
+  stroke: #000;
+}
