@@ -59,6 +59,7 @@ async function loadData() {
 
     countiesData = topojson.feature(mapData, mapData.objects.cb_2015_new_york_county_20m);
     console.log('Counties data loaded:', countiesData);
+    console.log("you are here")
     console.log(fedCongress)
 window.scrollTo(0, 0);
 
@@ -133,22 +134,62 @@ window.scrollTo(0, 0);
     });
     console.log(congressNextVote);
 
-        // Process expenses
-    var expenses = {};
-    expensesData.forEach(d => {
-        expenses[d.county_name] = {
-            salary: parseInt(d.salary) || 0,
-            staff: parseInt(d.staff) || 0,
-            operations: parseInt(d.ops) || 0,
-            travel: parseInt(d.travel) || 0,
-            total: parseInt(d.total_expenses) || 0
-        };
+        //CONGRESS SALARY EXPENSES
+    var congressSalary = {};
+    fedCongress.forEach(d => {
+        if (congressSalary[d.county_name]) {
+            congressSalary[d.county_name].push(d.salary);
+        } else {
+            congressSalary[d.county_name] = [d.salary];
+        }
     });
+    console.log(congressSalary);
 
-    console.log("Loaded Expenses Data:", expenses);
+        //CONGRESS STAFF SALARY
+    var congressStaff = {};
+    fedCongress.forEach(d => {
+        if (congressStaff[d.county_name]) {
+            congressStaff[d.county_name].push(d.staff);
+        } else {
+            congressStaff[d.county_name] = [d.staff];
+        }
+    });
+    console.log(congressStaff);
 
-  console.log("hi");
+        //CONGRESS OPERATIONS EXPENSES
+    var congressOperations = {};
+    fedCongress.forEach(d => {
+        if (congressOperations[d.county_name]) {
+            congressOperations[d.county_name].push(d.ops);
+        } else {
+            congressOperations[d.county_name] = [d.ops];
+        }
+    });
+    console.log(congressOperations);
 
+        //CONGRESS TRAVEL EXPENSES
+    var congressTravel = {};
+    fedCongress.forEach(d => {
+        if (congressTravel[d.county_name]) {
+            congressTravel[d.county_name].push(d.travel);
+        } else {
+            congressTravel[d.county_name] = [d.travel];
+        }
+    });
+    console.log(congressTravel);
+
+        //CONGRESS TOTAL EXPENSES
+    var congressTotal = {};
+    fedCongress.forEach(d => {
+        if (congressTotal[d.county_name]) {
+            congressTotal[d.county_name].push(d.totals);
+        } else {
+            congressTotal[d.county_name] = [d.totals];
+        }
+    });
+    console.log(congressTotal);
+
+      
 /* STATE SENATE VARIABLES || STATE SENATE VARIABLES || STATE SENATE VARIABLES */
 
     //SENATOR NAME
@@ -309,7 +350,11 @@ drawMap(
   assemblyPhone,
   assemblyStart,
   assemblyEmail,
-  expenses
+  congressSalary,
+  congressStaff,
+  congressOperations,
+  congressTravel,
+  congressTotal
   );
 
 
@@ -340,7 +385,11 @@ function drawMap(
   assemblyPhone,
   assemblyStart,
   assemblyEmail,
-  expenses
+  congressSalary,
+  congressStaff,
+  congressOperations,
+  congressTravel,
+  congressTotal
   ) {
   // Remove existing map elements
   svg.selectAll('.counties').remove();
@@ -424,6 +473,50 @@ console.log("Uh Oh!")
 // Get the county name from the clicked map element's data
  var clickedCountyName = d.target.__data__.properties.NAME;
 
+// Function to calculate unique rep expense averages
+function calculateAverages(congressRep, congressSalary, congressStaff, congressOperations, congressTravel, congressTotal) {
+    let uniqueReps = new Set();
+    let totalSalary = 0, totalStaff = 0, totalOperations = 0, totalTravel = 0, totalOverall = 0;
+    let count = 0;
+
+    Object.keys(congressRep).forEach(county => {
+        congressRep[county].forEach((rep, index) => {
+            if (!uniqueReps.has(rep)) {
+                uniqueReps.add(rep);
+
+                let salary = parseInt(congressSalary[county]?.[index]) || 0;
+                let staff = parseInt(congressStaff[county]?.[index]) || 0;
+                let operations = parseInt(congressOperations[county]?.[index]) || 0;
+                let travel = parseInt(congressTravel[county]?.[index]) || 0;
+                let total = parseInt(congressTotal[county]?.[index]) || 0;
+
+                totalSalary += salary;
+                totalStaff += staff;
+                totalOperations += operations;
+                totalTravel += travel;
+                totalOverall += total;
+                count++;
+            }
+        });
+    });
+
+    return {
+        avgSalary: count > 0 ? (totalSalary / count).toFixed(2) : 0,
+        avgStaff: count > 0 ? (totalStaff / count).toFixed(2) : 0,
+        avgOperations: count > 0 ? (totalOperations / count).toFixed(2) : 0,
+        avgTravel: count > 0 ? (totalTravel / count).toFixed(2) : 0,
+        avgTotal: count > 0 ? (totalOverall / count).toFixed(2) : 0
+    };
+}
+
+// Call function after fedCongress data is processed
+let averages = calculateAverages(congressRep, congressSalary, congressStaff, congressOperations, congressTravel, congressTotal);
+console.log("Average Expenses:", averages);
+
+// Store averages in window for other scripts to access
+window.expenseAverages = averages;
+
+
     var congressData = [];
     if (congressRep[clickedCountyName]) {
         congressRep[clickedCountyName].forEach((rep, index) => {
@@ -436,22 +529,23 @@ console.log("Uh Oh!")
                 nextVote: congressNextVote[clickedCountyName]?.[index] || "N/A",
                 img: "https://via.placeholder.com/120", // Placeholder image
                 expenses: {
-                    salary: parseInt(countySalary[clickedCountyName]?.[index]) || 0,
-                    staff: parseInt(staffSalaries[clickedCountyName]?.[index]) || 0,
-                    operations: parseInt(operationsExpenses[clickedCountyName]?.[index]) || 0,
-                    travel: parseInt(travelExpenses[clickedCountyName]?.[index]) || 0,
-                    total: parseInt(totalExpenses[clickedCountyName]?.[index]) || 0
-                }
+                salary: parseInt(congressSalary[clickedCountyName]?.[index]) || 0,
+                staff: parseInt(congressStaff[clickedCountyName]?.[index]) || 0,
+                operations: parseInt(congressOperations[clickedCountyName]?.[index]) || 0,
+                travel: parseInt(congressTravel[clickedCountyName]?.[index]) || 0,
+                total: parseInt(congressTotal[clickedCountyName]?.[index]) || 0
+            }
             });
         });
     }
 
 
-    document.dispatchEvent(new CustomEvent("countySelected", {
-        detail: { countyName: clickedCountyName, congressData }
-    }));
 
-    console.log(`Dispatched event for ${countyName}:`, congressData);
+document.dispatchEvent(new CustomEvent("countySelected", {
+    detail: { countyName: clickedCountyName, congressData }
+}));
+
+console.log(`Dispatched event for ${clickedCountyName}:`, congressData);
 
 /* CONGRESS INFORMATION INPUT || CONGRESS INFORMATION INPUT || CONGRESS INFORMATION INPUT*/
 

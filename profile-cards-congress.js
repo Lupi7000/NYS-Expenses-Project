@@ -1,32 +1,57 @@
 let charts = {}; // Store active charts by canvas ID
 
 document.addEventListener("countySelected", function (event) {
-    const { countyName, congressData } = event.detail;
-
-    console.log(`Profile Cards: Received data for ${countyName}`, congressData);
+    const { clickedCountyName, congressData } = event.detail;
+    console.log(`Profile Cards: Received data for ${clickedCountyName}`, congressData);
 
     const container = d3.select("#profileContainer");
-    container.html(""); // Clear old content
+    container.html(""); // Clear previous content
 
+    function formatNumber(value) {
+        if (value >= 1000000) {
+            return (Math.round(value / 100000) / 10) + "M"; // 1.3M format
+        } else {
+            return Math.round(value / 1000) + "K"; // 175K format
+        }
+    }
+
+   // Update Averages Table Formatting
+setTimeout(() => {
+    document.querySelectorAll(".averages-container tbody tr").forEach(row => {
+        const cells = row.children;
+        if (cells.length >= 5) {
+            cells[0].textContent = `$${formatNumber(averages.avgSalary)}`;
+            cells[1].textContent = `$${formatNumber(averages.avgStaff)}`;
+            cells[2].textContent = `$${formatNumber(averages.avgOperations)}`;
+            cells[3].textContent = `$${formatNumber(averages.avgTravel)}`;
+            cells[4].textContent = `$${formatNumber(averages.avgTotal)}`;
+        }
+    });
+}, 500);
+
+
+    let averages = window.expenseAverages || { avgSalary: 0, avgStaff: 0, avgOperations: 0, avgTravel: 0, avgTotal: 0 };
+
+    // Create profile cards dynamically
     congressData.forEach((rep, index) => {
         if (!rep.expenses) {
             console.warn(`No expenses found for ${rep.name}. Setting default values.`);
-            rep.expenses = { salary: 0, staff: 0, operations: 0, travel: 0, total: 0 }; // Ensure it exists
+            rep.expenses = { salary: 0, staff: 0, operations: 0, travel: 0, total: 0 };
         }
 
         const profileWrapper = document.createElement("div");
         profileWrapper.classList.add("profile-wrapper");
 
-        // ✅ Convert expenses to a JSON string and store it in the button attribute
         const expensesJSON = JSON.stringify(rep.expenses);
 
         profileWrapper.innerHTML = `
             <div class="card">
-                <img src="${rep.img}" alt="Portrait" class="profile-img">
+                <img src="/images/Congress/district-${rep.district.match(/\d+/)[0]}.jpg" alt="Portrait" class="profile-img" onerror="this.onerror=null;this.src='/images/Congress/default.jpg';">
+
                 <div class="info">
                     <p class="name">${rep.name}</p>
                     <div class="details">
-                        <span class="party" style="color: ${rep.party === 'Democrat' ? '#b20f3b' : '#173e72'}">${rep.party}</span>
+                        <span class="party">${rep.party}</span>
                         <span>${rep.district}</span>
                         <span class="phone">${rep.phone}</span>
                     </div>
@@ -61,11 +86,11 @@ document.addEventListener("countySelected", function (event) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>$${rep.expenses.salary.toLocaleString()}</td>
-                                    <td>$${rep.expenses.staff.toLocaleString()}</td>
-                                    <td>$${rep.expenses.operations.toLocaleString()}</td>
-                                    <td>$${rep.expenses.travel.toLocaleString()}</td>
-                                    <td>$${rep.expenses.total.toLocaleString()}</td>
+                                    <td>$${averages.avgSalary}</td>
+                                    <td>$${averages.avgStaff}</td>
+                                    <td>$${averages.avgOperations}</td>
+                                    <td>$${averages.avgTravel}</td>
+                                    <td>$${averages.avgTotal}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,10 +102,6 @@ document.addEventListener("countySelected", function (event) {
         container.node().appendChild(profileWrapper);
     });
 
-    console.log(`Profile cards updated for ${countyName}.`);
-});
-
-
 
     // Add event listeners for expanding profile cards & generating charts
 document.querySelectorAll('.btn-expenses').forEach((btn, index) => {
@@ -90,11 +111,9 @@ document.querySelectorAll('.btn-expenses').forEach((btn, index) => {
         const expansionContent = expansionContainer.querySelector('.expansion-content');
         const canvas = expansionContent.querySelector("canvas");
 
-        // ✅ Log the data-expenses attribute before parsing
         console.log(`Clicked EXPAND for Rep ${index}.`);
-        console.log(`data-expenses attribute:`, this.getAttribute("data-expenses"));
 
-        // ✅ Parse expenses safely
+        // ✅ Extract expenses safely from data attribute
         let expenses = this.getAttribute("data-expenses");
         if (expenses) {
             expenses = JSON.parse(expenses);
@@ -114,12 +133,17 @@ document.querySelectorAll('.btn-expenses').forEach((btn, index) => {
             expansionContainer.style.maxHeight = "500px"; 
             this.textContent = "COLLAPSE";
 
-            // ✅ Delay chart rendering to avoid DOM race conditions
+            // ✅ Delay chart rendering slightly to prevent race conditions
             setTimeout(() => {
                 createChart(canvas, index, expenses);
             }, 300);
         }
     });
+});
+
+
+
+    console.log(`Profile cards updated for ${clickedCountyName}.`);
 });
 
 
@@ -147,7 +171,45 @@ function createChart(canvas, index, expenses) {
         expenses.total || 0
     ];
 
-    // ✅ Store new chart instance in `charts` global object
+    // ✅ Extract Averages from the Table with Proper Parsing
+    const averagesTable = canvas.closest('.expansion-content').querySelector('.averages-container table tbody tr');
+    const avgValues = averagesTable
+        ? Array.from(averagesTable.children).map(td => {
+            return parseFloat(td.textContent.replace(/[$,K,M]/g, '')) *
+       (td.textContent.includes('M') ? 1e6 : td.textContent.includes('K') ? 1e3 : 1);
+        })
+        : [0, 0, 0, 0, 0];
+
+    console.log("Extracted Avg Values:", avgValues);
+
+ const dashedLinePlugin = {
+    id: `dashedLinePlugin-${canvas.id}`,
+    afterDatasetDraw(chart) {
+        const { ctx, scales: { y, x } } = chart;
+        ctx.save();
+        ctx.strokeStyle = 'orange';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([3, 3]); // Short dashed line
+
+        chart.getDatasetMeta(0).data.forEach((bar, index) => {
+            const avgValue = avgValues[index];
+            if (!avgValue) return; // Skip if avgValue is 0 or undefined
+
+            const avgX = x.getPixelForValue(avgValue);
+            const barTop = bar.y - bar.height / 2 - 5; // Slightly above the bar
+            const barBottom = bar.y + bar.height / 2 + 5; // Slightly below the bar
+
+            ctx.beginPath();
+            ctx.moveTo(avgX, barTop);
+            ctx.lineTo(avgX, barBottom);
+            ctx.stroke();
+        });
+
+        ctx.restore();
+    }
+};
+
+    // ✅ Create Chart with Plugin
     charts[canvas.id] = new Chart(ctx, {
         type: "bar",
         data: {
@@ -156,8 +218,8 @@ function createChart(canvas, index, expenses) {
                 {
                     label: "Expenses ($)",
                     data: dataValues,
-                    backgroundColor: dataValues.map((val) =>
-                        val > 5000 ? "rgba(255, 99, 132, 0.8)" : "rgba(23, 62, 114, 0.7)"
+                    backgroundColor: dataValues.map((val, i) =>
+                        val > avgValues[i] ? "rgba(255, 99, 132, 0.8)" : "rgba(23, 62, 114, 0.7)"
                     ),
                 },
             ],
@@ -173,19 +235,24 @@ function createChart(canvas, index, expenses) {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: "#333",
-                    titleFont: { family: "Roboto", size: 14, weight: "bold" },
-                    bodyFont: { family: "Roboto", size: 12, weight: "bold" },
-                    padding: 10,
-                    cornerRadius: 5,
-                    displayColors: false,
-                    callbacks: {
-                        label: (context) => `$${context.parsed.x.toLocaleString()}`,
-                    },
-                },
+                enabled: true,
+                position: 'nearest', // Fix invalid 'cursor' option
+                backgroundColor: '#333',
+                titleFont: { family: 'Roboto', size: 14, weight: 'bold' },
+                bodyFont: { family: 'Roboto', size: 12, weight: 'bold' },
+                padding: 10,
+                cornerRadius: 5,
+                displayColors: false,
+                caretSize: 0, // Ensure caret is visible
+                callbacks: {
+                    title: () => null, // Fix title rendering issue
+                    label: context => `$${context.parsed.x.toLocaleString()}`
+                }
+            }
             },
             layout: { padding: { right: 60 } },
         },
+        plugins: [dashedLinePlugin] // ✅ Add the Dashed Line Plugin
     });
 
     console.log(`Chart ${canvas.id} created successfully!`);
